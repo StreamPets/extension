@@ -2,8 +2,8 @@ import ColorSelection from "./ColorSelection";
 import WardrobePreview from "./WardrobePreview";
 import useColors from "hooks/useColors";
 
-const Wardrobe = ({ userData }) => {
-  const { colors, selColor, setSelColor, saveColor, cancelColor } = useColors(userData.color);
+const Wardrobe = ({ userData, authToken }) => {
+  const { colors, selColor, setSelColor, saveColor, cancelColor } = useColors(userData.color, authToken);
 
   return (
     <div

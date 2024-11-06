@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const useColors = (initialColor) => {
+const useColors = (initialColor, authToken) => {
   const [colors, setColors] = useState([]);
   const [currColor, setCurrColor] = useState(initialColor);
   const [selColor, setSelColor] = useState(initialColor);
@@ -11,7 +11,9 @@ const useColors = (initialColor) => {
   });
 
   const setColor = async (color) => {
-    await api.put('/colors', { color: color });
+    await api.put('/colors', { color: color }, {
+      headers: { 'x-extension-jwt': authToken }
+    });
   };
 
   const saveColor = () => {

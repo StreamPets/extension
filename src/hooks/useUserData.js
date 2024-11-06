@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 const useUserData = () => {
   const [userData, setUserData] = useState(null);
+  const [authToken, setAuthToken] = useState(null);
 
   const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL
@@ -10,22 +11,11 @@ const useUserData = () => {
 
   useEffect(() => {
     const fetchUserData = async (auth) => {
-      const helixToken = auth.helixToken;
-
-      const { data: { data: user }} = await axios.get('https://api.twitch.tv/helix/users', {
-        params: { 'id': auth.userId.replace('U','') },
-        headers: {
-          'client-id': process.env.REACT_APP_CLIENT_ID,
-          'Authorization': `Extension ${helixToken}`,
-        },
-      });
-
       const {data: userData} = await api.get('/user', {
-        params: { 'username': user[0].login },
         headers: { 'x-extension-jwt': auth.token }
       });
-
       setUserData(userData);
+      setAuthToken(auth.token);
     }
 
     window.Twitch.ext.onAuthorized((auth) => {
@@ -37,7 +27,7 @@ const useUserData = () => {
     window.Twitch.ext.actions.requestIdShare();
   }, []);
 
-  return { userData };
+  return { userData, authToken };
 }
 
 export default useUserData;
