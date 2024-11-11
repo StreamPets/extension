@@ -1,13 +1,7 @@
 import Color from "color";
 
 const ColorSwatch = ({ color, setColor }) => {
-
-  let colorHex = color;
-  if (color === 'black') {
-    colorHex = '#333';
-  }
-
-  const darkerColor = Color(color).darken(0.5).hex();
+  const darkerColor = Color(color.hex).darken(0.5).hex();
 
   return (
     <button style={{
@@ -17,7 +11,7 @@ const ColorSwatch = ({ color, setColor }) => {
       borderColor: 'white',
       borderStyle: 'solid',
       borderRadius: '100%',
-      background: `linear-gradient(315deg, ${darkerColor} 50%, ${colorHex} 50%)`,
+      background: `linear-gradient(315deg, ${darkerColor} 50%, ${color.hex} 50%)`,
       cursor: 'pointer',
     }}
     onClick={async () => await setColor(color)}

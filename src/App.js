@@ -1,6 +1,6 @@
 import './App.css';
-import Wardrobe from './views/Wardrobe';
 import useUserData from 'hooks/useUserData';
+import StreamPets from 'views/StreamPets';
 
 function App() {
   const { userData, authToken } = useUserData();
@@ -8,9 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {userData &&
-          <Wardrobe userData={userData} authToken={authToken} />
-        }
+        {userData && <StreamPets userData={userData} authToken={authToken} />}
       </header>
     </div>
   );

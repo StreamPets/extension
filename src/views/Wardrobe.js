@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import ColorSelection from "./ColorSelection";
 import WardrobePreview from "./WardrobePreview";
-import useColors from "hooks/useColors";
 
-const Wardrobe = ({ userData, authToken }) => {
-  const { colors, selColor, setSelColor, saveColor, cancelColor } = useColors(userData.color, authToken);
+const Wardrobe = ({ selColor, setSelColor, saveColor, cancelColor, availableColors }) => {
+  useEffect(() => {
+    return () => {
+      cancelColor();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
@@ -13,7 +18,7 @@ const Wardrobe = ({ userData, authToken }) => {
       }}
     >
       <WardrobePreview selColor={selColor} cancelColor={cancelColor} saveColor={saveColor} />
-      <ColorSelection colors={colors} setSelColor={setSelColor} />
+      <ColorSelection colors={availableColors} setSelColor={setSelColor} />
     </div>
   );
 }

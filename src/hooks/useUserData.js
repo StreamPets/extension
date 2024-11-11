@@ -15,12 +15,12 @@ const useUserData = () => {
         headers: { 'x-extension-jwt': auth.token }
       });
       setUserData(userData);
-      setAuthToken(auth.token);
     }
 
     window.Twitch.ext.onAuthorized((auth) => {
       if (window.Twitch.ext.viewer.isLinked) {
         fetchUserData(auth);
+        setAuthToken(auth.token);
       }
     });
 

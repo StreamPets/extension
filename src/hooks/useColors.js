@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const useColors = (initialColor, authToken) => {
-  const [colors, setColors] = useState([]);
   const [currColor, setCurrColor] = useState(initialColor);
   const [selColor, setSelColor] = useState(initialColor);
 
@@ -11,7 +10,7 @@ const useColors = (initialColor, authToken) => {
   });
 
   const setColor = async (color) => {
-    await api.put('/colors', { color: color }, {
+    await api.put('/colors', { color_id: color.id }, {
       headers: { 'x-extension-jwt': authToken }
     });
   };
@@ -19,23 +18,13 @@ const useColors = (initialColor, authToken) => {
   const saveColor = () => {
     setColor(selColor);
     setCurrColor(selColor);
-  }
+  };
 
   const cancelColor = () => {
     setSelColor(currColor);
-  }
+  };
 
-  useEffect(() => {
-    const fetchColors = async () => {
-      const { data: colors } = await api.get('/colors');
-      setColors(colors);
-    };
-
-    fetchColors();
-    // eslint-disable-next-line
-  }, []);
-
-  return { colors, selColor, setSelColor, saveColor, cancelColor };
-}
+  return { selColor, setSelColor, saveColor, cancelColor };
+};
 
 export default useColors;
