@@ -1,18 +1,13 @@
-import axios from "axios";
+import { putColor } from "api";
 import { useState } from "react";
 
 const useColors = (initialColor, authToken) => {
   const [currColor, setCurrColor] = useState(initialColor);
   const [selColor, setSelColor] = useState(initialColor);
 
-  const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
-  });
-
   const setColor = async (color) => {
-    await api.put('/colors', { color_id: color.id }, {
-      headers: { 'x-extension-jwt': authToken }
-    });
+    console.log(color);
+    putColor(color.id, authToken);
   };
 
   const saveColor = () => {

@@ -10,7 +10,7 @@ const ColorSelection = ({ colors, setSelColor }) => {
         justifyContent: 'center',
       }}
     >
-      {colors.map(color => <ColorSwatch key={color} color={color} setColor={() => setSelColor(color)} />)}
+      {colors.map(color => <ColorSwatch key={color.id} color={color} setColor={() => setSelColor(color)} />)}
     </div>
   );
 }

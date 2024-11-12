@@ -2,29 +2,24 @@ import useTab from 'hooks/useTab';
 import Wardrobe from 'views/Wardrobe';
 import Menu from 'components/Menu';
 import Store from 'views/Store';
-import axios from 'axios';
 import useColors from 'hooks/useColors';
 import { useEffect, useState } from 'react';
+import { getStoreColors } from 'api';
 
-const StreamPets = ({ userData, authToken }) => {
-
-  const { selColor, setSelColor, saveColor, cancelColor } = useColors(userData.colors.current, authToken);
+const StreamPets = ({ currentColor, availableColors, addAvailableColor, authToken }) => {
+  const { selColor, setSelColor, saveColor, cancelColor } = useColors(currentColor, authToken);
   const { tab, openWardrobe, openStore } = useTab();
-  const [storeColors, setStoreColors] = useState([]);
 
-  const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
-  });
+  const [storeColors, setStoreColors] = useState([]);
 
   useEffect(() => {
     const fetchStoreColors = async () => {
-      const { data: { colors } } = await api.get('/store');
+      const colors = await getStoreColors();
       setStoreColors(colors);
     };
     
     fetchStoreColors();
-    // eslint-disable-next-line
-  }, []);
+  }, [setStoreColors]);
 
   return (
     <>
@@ -35,11 +30,15 @@ const StreamPets = ({ userData, authToken }) => {
           setSelColor={setSelColor}
           saveColor={saveColor}
           cancelColor={cancelColor}
-          availableColors={userData.colors.available}
+          availableColors={availableColors}
         />
       }
       {tab === "store" &&
-        <Store colors={storeColors} />
+        <Store
+          onBuy={addAvailableColor}
+          colors={storeColors}
+          disabledColors={availableColors}
+        />
       }
     </>
   );

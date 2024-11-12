@@ -1,21 +1,19 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { getUserData } from 'api';
+import { useCallback, useEffect, useState } from 'react';
 
 const useUserData = () => {
-  const [userData, setUserData] = useState(null);
+  const [currentColor, setCurrentColor] = useState(null);
+  const [availableColors, setAvailableColors] = useState(null);
   const [authToken, setAuthToken] = useState(null);
-
-  const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
-  });
 
   useEffect(() => {
     const fetchUserData = async (auth) => {
-      const {data: userData} = await api.get('/user', {
-        headers: { 'x-extension-jwt': auth.token }
-      });
-      setUserData(userData);
-    }
+      const userData = await getUserData(auth.token);
+      setCurrentColor(userData.colors.current);
+      if (!availableColors) {
+        setAvailableColors(userData.colors.available);
+      }
+    };
 
     window.Twitch.ext.onAuthorized((auth) => {
       if (window.Twitch.ext.viewer.isLinked) {
@@ -25,9 +23,18 @@ const useUserData = () => {
     });
 
     window.Twitch.ext.actions.requestIdShare();
+  }, [availableColors, setAvailableColors, setAuthToken, setCurrentColor]);
+
+  const addAvailableColor = useCallback((color) => {
+    setAvailableColors(prev => {
+      if (!prev.find(available => available.id === color.id)) {
+        return [...prev, color];
+      }
+      return prev;
+    });
   }, []);
 
-  return { userData, authToken };
+  return { currentColor, availableColors, addAvailableColor, authToken };
 }
 
 export default useUserData;

@@ -1,18 +1,69 @@
-import ColorSwatch from "components/ColorSwatch";
+import { buyItem } from "api";
+import TRex from "components/TRex";
+import { useEffect, useRef } from "react";
 
-const Store = ({ colors }) => {
+const Store = ({ colors, onBuy, disabledColors }) => {
+
+  const buyColor = useRef(null);
   
-  // on click -> confirmation popup to buy
-  // add color to user's owned colors in database
-  // add color to available colors in userdata
-    // could reload userData, but waste of api call
+  const buy = (color) => {
+    buyColor.current = color;
+    window.Twitch.ext.bits.useBits(color.sku);
+  };
 
-  // display greyed out color swatch when bought  
+  useEffect(() => {
+    const fetchProducts = async () => {
+      await window.Twitch.ext.bits.getProducts();
+    };
+    fetchProducts();
+
+    window.Twitch.ext.bits.onTransactionCancelled(() => {
+      buyColor.current = null;
+    });
+
+    window.Twitch.ext.bits.onTransactionComplete(async (transaction) => {
+      if (buyColor.current) {
+        onBuy(buyColor.current);
+      }
+      buyItem(transaction.transactionReceipt);
+      buyColor.current = null;
+    });
+  }, [onBuy]);
 
   return (
-    <>
-      {colors.map(color => <ColorSwatch color={color} setColor={() => {}} />)}
-    </>
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+      }}
+    >
+      {colors.map(color =>
+        disabledColors.find(disabledColor => disabledColor.id === color.id)
+        ?
+        <div>
+          <p>{color.name}</p>
+          <TRex
+            key={color.id}
+            color={color}
+            grayscale={true}
+          />
+        </div>
+        :
+        <div
+          style={{
+            cursor: 'pointer',
+          }}
+          onClick={() => buy(color)}
+        >
+          <p>{color.name}</p>
+          <TRex
+            key={color.id}
+            color={color}
+          />
+        </div>
+      )}
+    </div>
   );
 }
 
