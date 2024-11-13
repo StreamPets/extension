@@ -1,25 +1,22 @@
-import { useEffect } from "react";
+import TRex from "components/TRex";
 import ColorSelection from "./ColorSelection";
-import WardrobePreview from "./WardrobePreview";
+import Button from "components/Button";
+import useSelectColor from "hooks/useSelectColor";
 
-const Wardrobe = ({ selColor, setSelColor, saveColor, cancelColor, availableColors }) => {
-  useEffect(() => {
-    return () => {
-      cancelColor();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+const Wardrobe = ({ currentColor, setCurrentColor, ownedColors }) => {
+  const { selectedColor, setSelectedColor, cancelColor, saveColor } = useSelectColor(currentColor, setCurrentColor);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-      }}
-    >
-      <WardrobePreview selColor={selColor} cancelColor={cancelColor} saveColor={saveColor} />
-      <ColorSelection colors={availableColors} setSelColor={setSelColor} />
-    </div>
+    <>
+      <div style={{ display: 'flex' }}>
+        {selectedColor && <TRex color={selectedColor} />}
+        <ColorSelection colors={ownedColors} setColor={setSelectedColor} />
+      </div>
+      <div style={{ display: 'flex' }}>
+        <Button onClick={cancelColor}>Cancel</Button>
+        <Button onClick={saveColor}>Save</Button>
+      </div>
+    </>
   );
 }
 

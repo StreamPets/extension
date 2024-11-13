@@ -1,40 +1,37 @@
 import { getUserData } from 'api';
-import { useCallback, useEffect, useState } from 'react';
+import { AuthContext } from 'contexts/AuthContext';
+import { useContext, useEffect, useState } from 'react';
 
 const useUserData = () => {
+  const { token } = useContext(AuthContext);
+
   const [currentColor, setCurrentColor] = useState(null);
-  const [availableColors, setAvailableColors] = useState(null);
-  const [authToken, setAuthToken] = useState(null);
+  const [ownedColors, setOwnedColors] = useState([]);
 
   useEffect(() => {
-    const fetchUserData = async (auth) => {
-      const userData = await getUserData(auth.token);
+    if (!token) {
+      return;
+    }
+
+    const fetchUserData = async () => {
+      const userData = await getUserData(token);
       setCurrentColor(userData.colors.current);
-      if (!availableColors) {
-        setAvailableColors(userData.colors.available);
-      }
+      setOwnedColors(userData.colors.available);
     };
+    
+    fetchUserData();
+  }, [token]);
 
-    window.Twitch.ext.onAuthorized((auth) => {
-      if (window.Twitch.ext.viewer.isLinked) {
-        fetchUserData(auth);
-        setAuthToken(auth.token);
-      }
-    });
-
-    window.Twitch.ext.actions.requestIdShare();
-  }, [availableColors, setAvailableColors, setAuthToken, setCurrentColor]);
-
-  const addAvailableColor = useCallback((color) => {
-    setAvailableColors(prev => {
-      if (!prev.find(available => available.id === color.id)) {
+  const addOwnedColor = (color) => {
+    setOwnedColors(prev => {
+      if (!prev.find(owned => owned.id === color.id)) {
         return [...prev, color];
       }
       return prev;
     });
-  }, []);
+  };
 
-  return { currentColor, availableColors, addAvailableColor, authToken };
+  return { currentColor, setCurrentColor, ownedColors, addOwnedColor };
 }
 
 export default useUserData;

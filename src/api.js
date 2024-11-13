@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL
 });
 
-const buyItem = async (transactionReceipt) => {
+const postBuyItem = async (transactionReceipt) => {
   await api.post('/store', {
     'token': transactionReceipt
   });
@@ -23,9 +23,9 @@ const putColor = async (colorId, token) => {
   });
 }
 
-const getStoreColors = async () => {
+const getStoreItems = async () => {
   const { data: { colors } } = await api.get('/store');
   return colors;
 }
 
-export { buyItem, getUserData, putColor, getStoreColors };
+export { postBuyItem, getUserData, putColor, getStoreItems };

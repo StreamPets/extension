@@ -2,42 +2,26 @@ import useTab from 'hooks/useTab';
 import Wardrobe from 'views/Wardrobe';
 import Menu from 'components/Menu';
 import Store from 'views/Store';
-import useColors from 'hooks/useColors';
-import { useEffect, useState } from 'react';
-import { getStoreColors } from 'api';
+import useUserData from 'hooks/useUserData';
 
-const StreamPets = ({ currentColor, availableColors, addAvailableColor, authToken }) => {
-  const { selColor, setSelColor, saveColor, cancelColor } = useColors(currentColor, authToken);
+const StreamPets = () => {
   const { tab, openWardrobe, openStore } = useTab();
-
-  const [storeColors, setStoreColors] = useState([]);
-
-  useEffect(() => {
-    const fetchStoreColors = async () => {
-      const colors = await getStoreColors();
-      setStoreColors(colors);
-    };
-    
-    fetchStoreColors();
-  }, [setStoreColors]);
+  const { currentColor, setCurrentColor, ownedColors, addOwnedColor } = useUserData();
 
   return (
     <>
       <Menu openWardrobe={openWardrobe} openStore={openStore} />
       {tab === "wardrobe" &&
         <Wardrobe
-          selColor={selColor}
-          setSelColor={setSelColor}
-          saveColor={saveColor}
-          cancelColor={cancelColor}
-          availableColors={availableColors}
+          currentColor={currentColor}
+          setCurrentColor={setCurrentColor}
+          ownedColors={ownedColors}
         />
       }
       {tab === "store" &&
         <Store
-          onBuy={addAvailableColor}
-          colors={storeColors}
-          disabledColors={availableColors}
+          addOwnedColor={addOwnedColor}
+          ownedColors={ownedColors}
         />
       }
     </>

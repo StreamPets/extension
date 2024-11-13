@@ -1,6 +1,6 @@
 import ColorSwatch from "components/ColorSwatch";
 
-const ColorSelection = ({ colors, setSelColor }) => {
+const ColorSelection = ({ colors, setColor }) => {
   return (
     <div
       style={{
@@ -10,7 +10,7 @@ const ColorSelection = ({ colors, setSelColor }) => {
         justifyContent: 'center',
       }}
     >
-      {colors.map(color => <ColorSwatch key={color.id} color={color} setColor={() => setSelColor(color)} />)}
+      {colors.map(color => <ColorSwatch key={color.id} color={color} setColor={() => setColor(color)} />)}
     </div>
   );
 }

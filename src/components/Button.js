@@ -20,12 +20,6 @@ const Button = ({ onClick, children, style }) => {
         cursor: 'pointer',
         borderWidth: 0,
         borderRadius: 5,
-        // fontWeight: 400,
-        // fontSize: 36,
-        // paddingTop: 10,
-        // paddingBottom: 10,
-        // paddingLeft: 16,
-        // paddingRight: 16,
         transition: 'background-color 0.3s ease',
         ...(isHovered ? buttonHoverStyle : {}),
       }}
