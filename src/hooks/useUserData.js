@@ -1,6 +1,6 @@
 import { getUserData } from 'api';
 import { AuthContext } from 'contexts/AuthContext';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 const useUserData = () => {
   const { token } = useContext(AuthContext);
@@ -9,7 +9,7 @@ const useUserData = () => {
   const [ownedColors, setOwnedColors] = useState([]);
 
   useEffect(() => {
-    if (!token) {
+    if (!token || currentColor) {
       return;
     }
 
@@ -20,16 +20,16 @@ const useUserData = () => {
     };
     
     fetchUserData();
-  }, [token]);
+  }, [token, currentColor]);
 
-  const addOwnedColor = (color) => {
+  const addOwnedColor = useCallback((color) => {
     setOwnedColors(prev => {
       if (!prev.find(owned => owned.id === color.id)) {
         return [...prev, color];
       }
       return prev;
     });
-  };
+  }, [setOwnedColors]);
 
   return { currentColor, setCurrentColor, ownedColors, addOwnedColor };
 }

@@ -1,19 +1,25 @@
 import Item from "components/Item";
 import useBuyItem from "hooks/useBuyItem";
-import useStoreItems from "hooks/useStoreItems";
 
-const Store = ({ addOwnedColor, ownedColors }) => {
-  const { items } = useStoreItems();
+const Store = ({ items, addOwnedColor, ownedColors }) => {
   const { onClickBuy } = useBuyItem(addOwnedColor);
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+    <div
+      style={{
+        display: 'flex',
+        width: '100%',
+        flexWrap: 'wrap',
+        justifyContent: 'space-evenly',
+        paddingTop: 18,
+      }}
+    >
       {items.map(color =>
         <Item
           key={color.id}
-          color={color}
+          prev={color.prev}
           clickable={!ownedColors.some(ownedColor => ownedColor.id === color.id)}
-          onClickBuy={onClickBuy}
+          onClick={() => onClickBuy(color)}
         />
       )}
     </div>

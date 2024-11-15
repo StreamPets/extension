@@ -6,6 +6,7 @@ const useStoreItems = () => {
 
   useEffect(() => {
     const fetchItems = async () => {
+      await window.Twitch.ext.bits.getProducts();
       const items = await getStoreItems();
       setItems(items);
     };

@@ -8,14 +8,33 @@ const Wardrobe = ({ currentColor, setCurrentColor, ownedColors }) => {
 
   return (
     <>
-      <div style={{ display: 'flex' }}>
-        {selectedColor && <TRex color={selectedColor} />}
-        <ColorSelection colors={ownedColors} setColor={setSelectedColor} />
+      <div style={{ margin: 12, padding: 8, width: '55%' }}>
+        <div
+          style={{
+            borderWidth: 4,
+            borderRadius: 8,
+            borderColor: 'white',
+            borderStyle: 'solid',
+            padding: 8,
+            // TODO: Find a better color
+            backgroundColor: 'grey',
+          }}
+        >
+          {selectedColor && <TRex color={selectedColor} />}
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            height: 30,
+            gap: 8,
+            paddingTop: 8,
+          }}
+        >
+          <Button style={{ width: '50%' }} onClick={cancelColor}>Cancel</Button>
+          <Button style={{ width: '50%' }} onClick={saveColor}>Save</Button>
+        </div>
       </div>
-      <div style={{ display: 'flex' }}>
-        <Button onClick={cancelColor}>Cancel</Button>
-        <Button onClick={saveColor}>Save</Button>
-      </div>
+      <ColorSelection colors={ownedColors} setColor={setSelectedColor} />
     </>
   );
 }

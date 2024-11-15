@@ -1,5 +1,3 @@
-import ColorSwatch from "components/ColorSwatch";
-
 const ColorSelection = ({ colors, setColor }) => {
   return (
     <div
@@ -7,10 +5,24 @@ const ColorSelection = ({ colors, setColor }) => {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
+        width: '100%',
+        gap: 8,
       }}
     >
-      {colors.map(color => <ColorSwatch key={color.id} color={color} setColor={() => setColor(color)} />)}
+      {colors.map(color =>
+        <img
+          style={{
+            height: 64,
+            width: 64,
+            cursor: 'pointer',
+          }}
+          src={color.prev}
+          alt="dino preview"
+          onClick={() => setColor(color)}
+          key={color.id}
+        />
+      )}
     </div>
   );
 }

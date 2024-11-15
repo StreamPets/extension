@@ -10,11 +10,6 @@ const useBuyItem = (addOwnedItem) => {
   };
 
   useEffect(() => {
-    // const fetchProducts = async () => {
-    //   await window.Twitch.ext.bits.getProducts();
-    // };
-    // fetchProducts();
-
     window.Twitch.ext.bits.onTransactionCancelled(() => {
       itemToBuy.current = null;
     });
