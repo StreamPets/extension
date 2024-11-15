@@ -1,19 +1,13 @@
 import Item from "components/Item";
 import useBuyItem from "hooks/useBuyItem";
 
+import './Store.css';
+
 const Store = ({ items, addOwnedColor, ownedColors }) => {
   const { onClickBuy } = useBuyItem(addOwnedColor);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        width: '100%',
-        flexWrap: 'wrap',
-        justifyContent: 'space-evenly',
-        paddingTop: 18,
-      }}
-    >
+    <div className="store">
       {items.map(color =>
         <Item
           key={color.id}

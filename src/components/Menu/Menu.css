@@ -1,0 +1,8 @@
+.menu {
+  display: flex;
+  height: 100px;
+  width: 100%;
+  background-color: #33333a;
+  align-items: center;
+  justify-content: space-evenly;
+}

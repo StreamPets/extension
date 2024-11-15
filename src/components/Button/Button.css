@@ -1,0 +1,19 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  border-width: 0px;
+  border-radius: 3px;
+}
+
+.icon {
+  height: 1rem;
+}
+
+.button-text {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}

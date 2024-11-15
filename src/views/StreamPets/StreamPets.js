@@ -1,25 +1,28 @@
-import useTab from 'hooks/useTab';
 import Wardrobe from 'views/Wardrobe';
 import Menu from 'components/Menu';
 import Store from 'views/Store';
 import useUserData from 'hooks/useUserData';
 import useStoreItems from 'hooks/useStoreItems';
 
+import './StreamPets.css';
+import { useCallback, useState } from 'react';
+
 const StreamPets = () => {
-  const { tab, openWardrobe, openStore } = useTab();
   const { currentColor, setCurrentColor, ownedColors, addOwnedColor } = useUserData();
   const { items } = useStoreItems();
 
+  const [tab, setTab] = useState('wardrobe');
+
+  const openWardrobe = useCallback(() => {
+    setTab('wardrobe');
+  }, [setTab]);
+
+  const openStore = useCallback(() => {
+    setTab('store');
+  }, [setTab]);
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-        height: '100%',
-        alignItems: 'center',
-      }}
-    >
+    <div className='stream-pets'>
       <Menu openTab={tab} openWardrobe={openWardrobe} openStore={openStore} />
       {tab === "wardrobe" &&
         <Wardrobe

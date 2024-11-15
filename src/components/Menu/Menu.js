@@ -1,19 +1,12 @@
-import MenuButton from "./MenuButton";
+import MenuButton from "components/MenuButton";
 import { FaShirt } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 
+import './Menu.css';
+
 const Menu = ({ openTab, openWardrobe, openStore }) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        height: 100,
-        width: '100%',
-        backgroundColor: '#33333a',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-      }}
-    >
+    <div className='menu'>
       <MenuButton
         text='Wardrobe'
         onClick={openWardrobe}

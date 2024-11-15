@@ -1,0 +1,7 @@
+.store {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-top: 18px;
+}
