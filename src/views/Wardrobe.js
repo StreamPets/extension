@@ -16,8 +16,7 @@ const Wardrobe = ({ currentColor, setCurrentColor, ownedColors }) => {
             borderColor: 'white',
             borderStyle: 'solid',
             padding: 8,
-            // TODO: Find a better color
-            backgroundColor: 'grey',
+            backgroundColor: '#33333a',
           }}
         >
           {selectedColor && <TRex color={selectedColor} />}
@@ -30,8 +29,20 @@ const Wardrobe = ({ currentColor, setCurrentColor, ownedColors }) => {
             paddingTop: 8,
           }}
         >
-          <Button style={{ width: '50%' }} onClick={cancelColor}>Cancel</Button>
-          <Button style={{ width: '50%' }} onClick={saveColor}>Save</Button>
+          <Button
+            text='Cancel'
+            color='#33333a'
+            hoverColor='#38383f'
+            style={{ width: '50%', paddingBottom: 2 }}
+            onClick={cancelColor}
+          />
+          <Button
+            text='Save'
+            color='#9147ff'
+            hoverColor='#782ce7'
+            style={{ width: '50%', paddingBottom: 2 }}
+            onClick={saveColor}
+          />
         </div>
       </div>
       <ColorSelection colors={ownedColors} setColor={setSelectedColor} />

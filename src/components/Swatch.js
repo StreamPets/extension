@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Button = ({ text, icon, color, hoverColor, onClick, style }) => {
+const Swatch = ({ text, color, hoverColor, style }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const buttonHoverStyle = {
@@ -9,7 +9,6 @@ const Button = ({ text, icon, color, hoverColor, onClick, style }) => {
   
   return (
     <button
-      onClick={onClick}
       style={{
         ...style,
         display: 'flex',
@@ -17,7 +16,6 @@ const Button = ({ text, icon, color, hoverColor, onClick, style }) => {
         justifyContent: 'center',
         backgroundColor: color,
         color: 'white',
-        cursor: onClick && 'pointer',
         borderWidth: 0,
         borderRadius: 3,
         ...(isHovered ? buttonHoverStyle : {}),
@@ -25,12 +23,11 @@ const Button = ({ text, icon, color, hoverColor, onClick, style }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-      {icon && <img style={{height: 14}} src={icon} alt="button icon" />}
-      <p style={{ fontSize: 15, fontWeight: 600, margin: 0 }}>
+      <p style={{ fontSize: 15, margin: 0 }}>
         {text}
       </p>
     </button>
   );
 }
 
-export default Button;
+export default Swatch;

@@ -1,20 +1,19 @@
-const MenuButton = ({ text, onClick, isOpen }) => {
+const MenuButton = ({ text, icon, onClick, isOpen, children }) => {
 return (
     <div
       onClick={onClick}
       style={{
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         width: '33%',
         borderWidth: 0,
         cursor: 'pointer',
-        // TODO: Get a lighter grey
         color: isOpen ? 'white' : 'grey',
       }}
     >
-      {/* TODO: Add ICONS */}
-      <p>ICON</p>
-      {text}
+      {children}
+      <p style={{ margin: 0 }}>{text}</p>
     </div>
   );
 }
