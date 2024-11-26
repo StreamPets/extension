@@ -1,4 +1,4 @@
-import type { HTMLProps } from "react";
+import type { FC, HTMLProps } from "react";
 import "./MenuButton.css";
 
 interface MenuButtonProps extends HTMLProps<HTMLButtonElement> {
@@ -7,11 +7,11 @@ interface MenuButtonProps extends HTMLProps<HTMLButtonElement> {
 	type?: "button" | "submit" | "reset";
 }
 
-const MenuButton = ({ text, isOpen, children, ...rest }: MenuButtonProps) => {
+const MenuButton: FC<MenuButtonProps> = ({ text, isOpen, type = "button", children, ...rest }) => {
 	return (
 		<button
 			className="menu-button"
-			type="button"
+			type={type}
 			style={{ color: isOpen ? "white" : "grey" }}
 			{...rest}
 		>
