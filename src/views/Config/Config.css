@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.overlay-url {
+  border-width: 0.1rem;
+  border-style: solid;
+  border-color: white;
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+  border-right: none;
+  color: white;
+  background: none;
+  width: 100%;
+  height: 100%;
+  padding: 0.3rem;
+  user-select: all;
+  overflow-x: scroll;
+  text-wrap: nowrap;
+  scrollbar-width: none;
+}
+
+.launch-button {
+  border-width: 0;
+  border-top-right-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+  background-color: #9147ff;
+  color: white;
+}
+
+.launch-button:hover {
+  background-color: #782ce7;
+}
