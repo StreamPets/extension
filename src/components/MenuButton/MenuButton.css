@@ -5,8 +5,12 @@
 	width: 33%;
 	border-width: 0;
 	cursor: pointer;
+	background: none;
+	gap: 0.2rem;
 }
 
 p {
 	margin: 0;
+	font-size: medium;
+	font-weight: 500;
 }

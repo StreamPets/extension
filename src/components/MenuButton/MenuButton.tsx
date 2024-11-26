@@ -1,15 +1,23 @@
 import "./MenuButton.css";
 
-const MenuButton = ({ text, onClick, isOpen, children }) => {
+interface MenuButtonProps {
+	text: string;
+	onClick: () => void;
+	isOpen: boolean;
+	children: React.ReactNode;
+}
+
+const MenuButton = ({ text, onClick, isOpen, children }: MenuButtonProps) => {
 	return (
-		<div
+		<button
 			className="menu-button"
+			type="button"
 			onClick={onClick}
 			style={{ color: isOpen ? "white" : "grey" }}
 		>
 			{children}
 			<p>{text}</p>
-		</div>
+		</button>
 	);
 };
 
