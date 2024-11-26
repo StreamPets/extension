@@ -1,33 +1,33 @@
 .wardrobe {
-  margin: 12px;
-  padding: 8px;
-  width: 55%;
+	margin: 12px;
+	padding: 8px;
+	/* width: 55%; */
 }
 
 .button-box {
-  display: flex;
-  height: 30px;
-  gap: 8px;
-  padding-top: 8px;
+	display: flex;
+	height: 30px;
+	gap: 8px;
+	padding-top: 8px;
 }
 
 .wardrobe-button {
-  width: 50%;
-  padding-bottom: 2px;
+	width: 50%;
+	padding-bottom: 2px;
 }
 
 .cancel-button {
-  background-color: #33333a;
+	background-color: #33333a;
 }
 
 .cancel-button:hover {
-  background-color: #38383f;
+	background-color: #38383f;
 }
 
 .save-button {
-  background-color: #9147ff;
+	background-color: #9147ff;
 }
 
 .save-button:hover {
-  background-color: #782ce7;
+	background-color: #782ce7;
 }

@@ -1,14 +1,14 @@
 .color-selection {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  gap: 8px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 100%;
+	gap: 8px;
 }
 
 .color-icon {
-  height: 64px;
-  width: 64px;
-  cursor: pointer;
+	height: 64px;
+	width: 64px;
+	cursor: pointer;
 }
