@@ -1,19 +1,19 @@
+import type { HTMLProps } from "react";
 import "./MenuButton.css";
 
-interface MenuButtonProps {
+interface MenuButtonProps extends HTMLProps<HTMLButtonElement> {
 	text: string;
-	onClick: () => void;
 	isOpen: boolean;
-	children: React.ReactNode;
+	type?: "button" | "submit" | "reset";
 }
 
-const MenuButton = ({ text, onClick, isOpen, children }: MenuButtonProps) => {
+const MenuButton = ({ text, isOpen, children, ...rest }: MenuButtonProps) => {
 	return (
 		<button
 			className="menu-button"
 			type="button"
-			onClick={onClick}
 			style={{ color: isOpen ? "white" : "grey" }}
+			{...rest}
 		>
 			{children}
 			<p>{text}</p>
