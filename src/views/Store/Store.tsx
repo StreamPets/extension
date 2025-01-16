@@ -1,27 +1,25 @@
-import Item from "../../components/Item";
+import ItemPreview from "../../components/ItemPreview";
 import useBuyItem from "../../hooks/useBuyItem";
-import Color from "../../types/Color";
+import type Item from "../../types/Item";
 import "./Store.css";
 
 interface StoreProps {
-	items: Color[],
-	addOwnedColor: (color: Color) => void,
-	ownedColors: Color[],
+	items: Item[];
+	addOwnedItem: (item: Item) => void;
+	ownedItems: Item[];
 }
 
-const Store = ({ items, addOwnedColor, ownedColors }: StoreProps) => {
-	const { onClickBuy } = useBuyItem(addOwnedColor);
+const Store = ({ items, addOwnedItem, ownedItems }: StoreProps) => {
+	const { onClickBuy } = useBuyItem(addOwnedItem);
 
 	return (
 		<div className="store">
-			{items.map((color) => (
-				<Item
-					key={color.id}
-					prev={color.prev}
-					clickable={
-						!ownedColors.some((ownedColor) => ownedColor.id === color.id)
-					}
-					onClick={() => onClickBuy(color)}
+			{items.map((item) => (
+				<ItemPreview
+					key={item.id}
+					prev={item.prev}
+					clickable={!ownedItems.some((ownedItem) => ownedItem.id === item.id)}
+					onClick={() => onClickBuy(item)}
 				/>
 			))}
 		</div>

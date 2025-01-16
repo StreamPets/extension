@@ -1,14 +1,14 @@
-import Color from "../../types/Color";
+import type Item from "../../types/Item";
 import "./TRex.css";
 
 interface TRexProps {
-	color: Color,
+	item: Item;
 }
 
-const TRex = ({ color }: TRexProps) => {
+const TRex = ({ item }: TRexProps) => {
 	return (
 		<div className="trex-container">
-			<img className="trex" src={color.img} alt="trex" />
+			<img className="trex" src={item.img} alt="trex" />
 		</div>
 	);
 };

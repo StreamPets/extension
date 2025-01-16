@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { getStoreItems } from "../api";
 import { AuthContext } from "../contexts/AuthContext";
 
-const useStoreItems = () => {
+const useStoreData = () => {
 	const { token } = useContext(AuthContext);
 	const [items, setItems] = useState([]);
 
@@ -23,4 +23,4 @@ const useStoreItems = () => {
 	return { items };
 };
 
-export default useStoreItems;
+export default useStoreData;

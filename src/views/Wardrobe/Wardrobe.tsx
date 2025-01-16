@@ -1,40 +1,42 @@
 import Button from "../../components/Button";
-import ColorSelection from "../../components/ColorSelection";
+import ItemSelection from "../../components/ItemSelection";
 import TRex from "../../components/TRex";
-import useSelectColor from "../../hooks/useSelectColor";
-import Color from "../../types/Color";
+import useSelectItem from "../../hooks/useSelectItem";
+import type Item from "../../types/Item";
 import "./Wardrobe.css";
 
 interface WardrobeProps {
-	currentColor: Color | null,
-	updateCurrentColor: (color: Color) => void,
-	ownedColors: Color[],
+	currentItem: Item | null;
+	updateCurrentItem: (item: Item) => void;
+	ownedItems: Item[];
 }
 
-const Wardrobe = ({ currentColor, updateCurrentColor, ownedColors }: WardrobeProps) => {
-	const { selectedColor, setSelectedColor, cancelColor, saveColor } =
-		useSelectColor(currentColor, updateCurrentColor);
+const Wardrobe = ({ currentItem, updateCurrentItem, ownedItems }: WardrobeProps) => {
+	const { selectedItem, setSelectedItem, cancelItem, saveItem } = useSelectItem(
+		currentItem,
+		updateCurrentItem,
+	);
 
 	return (
 		<>
 			<div className="wardrobe">
-				{selectedColor && <TRex color={selectedColor} />}
+				{selectedItem && <TRex item={selectedItem} />}
 				<div className="button-box">
 					<Button
 						icon={null}
 						text="Cancel"
 						className="wardrobe-button cancel-button"
-						onClick={cancelColor}
+						onClick={cancelItem}
 					/>
 					<Button
 						icon={null}
 						text="Save"
 						className="wardrobe-button save-button"
-						onClick={saveColor}
+						onClick={saveItem}
 					/>
 				</div>
 			</div>
-			<ColorSelection colors={ownedColors} setColor={setSelectedColor} />
+			<ItemSelection items={ownedItems} setItem={setSelectedItem} />
 		</>
 	);
 };

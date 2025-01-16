@@ -1,14 +1,14 @@
-import useTab from "./useTab";
-import useUserData from "../../hooks/useUserData";
-import useStoreItems from "../../hooks/useStoreItems";
 import Menu from "../../components/Menu";
-import Wardrobe from "../Wardrobe";
+import useStoreItems from "../../hooks/useStoreItems";
+import useUserData from "../../hooks/useUserData";
 import Store from "../Store";
+import Wardrobe from "../Wardrobe";
+import useTab from "./useTab";
 import "./StreamPets.css";
 
 const StreamPets = () => {
 	const { tab, openWardrobe, openStore } = useTab();
-	const { currentColor, updateCurrentColor, ownedColors, addOwnedColor } = useUserData();
+	const { currentItem, updateCurrentItem, ownedItems, addOwnedItem } = useUserData();
 	const { items } = useStoreItems();
 
 	return (
@@ -16,17 +16,13 @@ const StreamPets = () => {
 			<Menu tab={tab} openWardrobe={openWardrobe} openStore={openStore} />
 			{tab === "wardrobe" && (
 				<Wardrobe
-					currentColor={currentColor}
-					updateCurrentColor={updateCurrentColor}
-					ownedColors={ownedColors}
+					currentItem={currentItem}
+					updateCurrentItem={updateCurrentItem}
+					ownedItems={ownedItems}
 				/>
 			)}
 			{tab === "store" && (
-				<Store
-					items={items}
-					addOwnedColor={addOwnedColor}
-					ownedColors={ownedColors}
-				/>
+				<Store items={items} addOwnedItem={addOwnedItem} ownedItems={ownedItems} />
 			)}
 		</div>
 	);

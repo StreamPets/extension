@@ -1,42 +1,42 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { AuthContext } from "../contexts/AuthContext";
 import { getUserData } from "../api";
-import Color from "../types/Color";
+import { AuthContext } from "../contexts/AuthContext";
+import type Item from "../types/Item";
 
 const useUserData = () => {
 	const { token } = useContext(AuthContext);
 
-	const [currentColor, setCurrentColor] = useState<Color | null>(null);
-	const [ownedColors, setOwnedColors] = useState<Color[]>([]);
+	const [currentItem, setCurrentItem] = useState<Item | null>(null);
+	const [ownedItems, setOwnedItems] = useState<Item[]>([]);
 
 	useEffect(() => {
-		if (!token || currentColor) {
+		if (!token || currentItem) {
 			return;
 		}
 
 		const fetchUserData = async () => {
-			const userData = await getUserData(token);
-			setCurrentColor(userData.colors.current);
-			setOwnedColors(userData.colors.available);
+			const { selected, owned } = await getUserData(token);
+			setCurrentItem(selected);
+			setOwnedItems(owned);
 		};
 
 		fetchUserData();
-	}, [token, currentColor]);
+	}, [token, currentItem]);
 
-	const updateCurrentColor = (color: Color) => {
-		return setCurrentColor(color);
-	}
+	const updateCurrentItem = (item: Item) => {
+		return setCurrentItem(item);
+	};
 
-	const addOwnedColor = useCallback((color: Color) => {
-		setOwnedColors((prev) => {
-			if (!prev.find((owned) => owned.id === color.id)) {
-				return [...prev, color];
+	const addOwnedItem = useCallback((item: Item) => {
+		setOwnedItems((prev) => {
+			if (!prev.find((owned) => owned.id === item.id)) {
+				return [...prev, item];
 			}
 			return prev;
 		});
-	}, [setOwnedColors]);
+	}, []);
 
-	return { currentColor, updateCurrentColor, ownedColors, addOwnedColor };
+	return { currentItem, updateCurrentItem, ownedItems, addOwnedItem };
 };
 
 export default useUserData;

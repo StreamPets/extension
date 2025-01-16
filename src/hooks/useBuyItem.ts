@@ -1,15 +1,15 @@
 import { useContext, useEffect, useRef } from "react";
 import { postBuyItem } from "../api";
 import { AuthContext } from "../contexts/AuthContext";
-import Color from "../types/Color";
+import type Item from "../types/Item";
 
-const useBuyItem = (addOwnedItem: (item: Color) => void) => {
+const useBuyItem = (addOwnedItem: (item: Item) => void) => {
 	const { token } = useContext(AuthContext);
-	const itemToBuy = useRef<Color | null>(null);
+	const itemToBuy = useRef<Item | null>(null);
 
-	const onClickBuy = (item: Color) => {
+	const onClickBuy = (item: Item) => {
 		itemToBuy.current = item;
-		window.Twitch.ext.bits.useBits(item.sku);
+		window.Twitch.ext.bits.useBits(item.rarity);
 	};
 
 	useEffect(() => {
@@ -24,11 +24,7 @@ const useBuyItem = (addOwnedItem: (item: Color) => void) => {
 		window.Twitch.ext.bits.onTransactionComplete(async (transaction) => {
 			if (itemToBuy.current) {
 				addOwnedItem(itemToBuy.current);
-				postBuyItem(
-					transaction.transactionReceipt,
-					token,
-					itemToBuy.current.id,
-				);
+				postBuyItem(transaction.transactionReceipt, token, itemToBuy.current.id);
 			}
 			itemToBuy.current = null;
 		});

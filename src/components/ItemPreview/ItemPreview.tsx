@@ -5,12 +5,12 @@ import classNames from "classnames";
 import Button from "../Button";
 
 interface ItemProps {
-	prev: string,
-	clickable: boolean,
-	onClick: () => void,
+	prev: string;
+	clickable: boolean;
+	onClick: () => void;
 }
 
-const Item = ({ prev, clickable, onClick }: ItemProps) => {
+const ItemPreview = ({ prev, clickable, onClick }: ItemProps) => {
 	return (
 		<div className="item">
 			<img
@@ -19,14 +19,9 @@ const Item = ({ prev, clickable, onClick }: ItemProps) => {
 				alt="dino preview"
 			/>
 			{clickable ? (
-				<Button
-					className="item-button"
-					text="Buy"
-					icon={BitIcon}
-					onClick={onClick}
-				/>
+				<Button className="item-button" text="Buy" icon={BitIcon} onClick={onClick} />
 			) : (
-				<button className="item-swatch">
+				<button type="button" className="item-swatch">
 					<p className="swatch-text">{"Purchased"}</p>
 				</button>
 			)}
@@ -34,4 +29,4 @@ const Item = ({ prev, clickable, onClick }: ItemProps) => {
 	);
 };
 
-export default Item;
+export default ItemPreview;
